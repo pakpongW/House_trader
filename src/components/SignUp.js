@@ -6,12 +6,14 @@ import {
   createUserWithEmailAndPassword,
   signInWithPhoneNumber,
 } from "firebase/auth";
+import House from "../image/house.png";
 
 const SignUp = () => {
-  const countryCode = "+66";
   const navigate = useNavigate();
+  let tempNumber = "+66";
   const [currentUser, setCurrentUser] = useState(null);
-  const [phoneNumber, setPhoneNumber] = useState(countryCode);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [OTP, setOTP] = useState("");
 
   if (currentUser) {
     navigate("/dashboard");
@@ -33,7 +35,6 @@ const SignUp = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(
       "recaptcha-container",
       {
-        size: "invisible",
         callback: (response) => {
           // reCAPTCHA solved, allow signInWithPhoneNumber.
         },
@@ -42,11 +43,26 @@ const SignUp = () => {
     );
   };
 
+  const checkPhoneNumber = (e) => {
+    let ArrayNumber = phoneNumber.split("");
+    console.log(ArrayNumber);
+
+    if (ArrayNumber[0] === "0") {
+      for (let i = 1; i < ArrayNumber.length; i++) {
+        tempNumber += ArrayNumber[i];
+      }
+      console.log("tempNumber:" + tempNumber);
+      setPhoneNumber(tempNumber);
+    }
+  };
+
   const requestOTP = (e) => {
+    checkPhoneNumber();
     console.log("Hello OTP");
     e.preventDefault();
     if (phoneNumber.length >= 12) {
       console.log("I'm in");
+      console.log(phoneNumber);
       generateRecaptcha();
       let appVerifier = window.recaptchaVerifier;
 
@@ -61,29 +77,56 @@ const SignUp = () => {
     }
   };
 
-  return (
-    <div className="formContainer">
-      <form onSubmit={handleSubmit}>
-        <h1>Sign Up</h1>
-        <div className="mb-3" controlid="formPhoneNumber">
-          <label>Phone number</label>
+  const verifyOTP = (e) => {
+    let otp = e.target.value;
+    setOTP(otp);
+    console.log(otp);
 
-          <div className="input-group mb3">
-            <span className="input-group-text">+66</span>
+    if (otp.length === 6) {
+      //Verify OTP
+      let confirmationResult = window.confirmationResult;
+      confirmationResult
+        .confirm(otp)
+        .then((result) => {
+          // User signed in successfully.
+          const user = result.user;
+          // ...
+        })
+        .catch((error) => {
+          // User couldn't sign in (bad verification code?)
+          alert(error);
+        });
+    }
+  };
+
+  return (
+    <div className="container ">
+      <form onSubmit={handleSubmit}>
+        <div className="text-center mt-4 mb-3">
+          <div className="px-5">
+            <img src={House} className="img-fluid" alt="house"></img>
+          </div>
+        </div>
+        <div className="mb-3 w-50" controlid="formPhoneNumber">
+          <label>Phone number</label>
+          <div className="input-group">
+            <span className="input-group-text">thailand +66</span>
             <input
               type="tel"
               className="form-control"
               name="phonenumber"
+              pattern="[0-9]{10}"
               value={phoneNumber}
-              pattern="+66[0-9]{}"
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+              }}
             />
             <button className="btn btn-primary" onClick={requestOTP}>
               OTP
             </button>
           </div>
           <div id="phoneHelp" className="form-text text-muted">
-            please insert your phone number.
+            please insert your phone number Ex: 0XXXXXXXXX
           </div>
         </div>
         <div id="recaptcha-container"></div>
@@ -93,7 +136,8 @@ const SignUp = () => {
             type="number"
             className="form-control"
             id="otpInput"
-            pattern="[0-9]{6}"
+            value={OTP}
+            onChange={verifyOTP}
           />
           <div id="otpHelp" className="form-text">
             Please enter your otp

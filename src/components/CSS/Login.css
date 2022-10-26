@@ -1,0 +1,84 @@
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+.fontMoreBold {
+  font-family: fontMoreBold;
+}
+
+.bg-light {
+  background-color: #fff;
+}
+
+.link-round {
+  border: 0.2rem solid #4a2010;
+  border-radius: 1.5rem;
+}
+
+.container {
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menu-form {
+  width: 100%;
+  max-width: 320px;
+  margin: auto;
+}
+
+.col {
+  flex: 1 0 0%;
+}
+
+.col-form-label {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  padding-left: 1.5rem;
+  padding-top: 0.45rem;
+  margin-bottom: 0;
+  font-size: inherit;
+  line-height: 1;
+  color: rgb(255, 255, 255);
+  text-shadow: rgb(55, 68, 116) 1px 1px 3px, rgb(55, 68, 116) 0px 0px 1em,
+    rgb(55, 68, 116) 0px 0px 0.4em;
+}
+
+.col-12 {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.3rem 0.8rem;
+  font-size: calc(1.275rem + 0.3vw);
+  font-weight: 400;
+  line-height: 1;
+  color: #000;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 0.2rem solid #4a2010;
+  appearance: none;
+  border-radius: 1.5rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-form {
+  background-image: url(../../image/button1.png);
+  width: 180px;
+  background-size: 180px;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 28px;
+  color: #4a2010;
+  padding-bottom: 10px;
+  border: 0;
+}
