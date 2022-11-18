@@ -3,35 +3,36 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./Auth";
 import { auth } from "../config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import "./CSS/Login.css";
+import "./CSS/menuform.css";
 import House from "../image/house.png";
 
 const LogIn = () => {
   const navigate = useNavigate();
   const { currentUser } = AuthContext;
 
-  if (currentUser) {
-    navigate("/dashboard");
-  }
+  //   if (currentUser) {
+  //     navigate("/dashboard");
+  //   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    navigate("/dashboard");
+    // e.preventDefault();
 
-    const { email, password } = e.target.elements;
+    // const { email, password } = e.target.elements;
 
-    try {
-      signInWithEmailAndPassword(auth, email.value, password.value)
-        .then(async (currentUser) => {
-          if (currentUser) {
-            navigate("/dashboard");
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    } catch (error) {
-      alert(error);
-    }
+    // try {
+    //   signInWithEmailAndPassword(auth, email.value, password.value)
+    //     .then(async (currentUser) => {
+    //       if (currentUser) {
+    //         navigate("/dashboard");
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       alert(error);
+    //     });
+    // } catch (error) {
+    //   alert(error);
+    // }
   };
 
   return (
@@ -68,6 +69,7 @@ const LogIn = () => {
               />
             </div>
           </div>
+
           <div className="row mb-3">
             <div className="text-center">
               <button className="btn-form" type="submit">

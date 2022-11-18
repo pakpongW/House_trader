@@ -7,6 +7,7 @@ import {
   signInWithPhoneNumber,
 } from "firebase/auth";
 import House from "../image/house.png";
+import "./CSS/menuform.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -100,50 +101,200 @@ const SignUp = () => {
   };
 
   return (
-    <div className="container ">
-      <form onSubmit={handleSubmit}>
-        <div className="text-center mt-4 mb-3">
-          <div className="px-5">
-            <img src={House} className="img-fluid" alt="house"></img>
+    <div className="container">
+      <div className="text-center mt-4 mb-3">
+        <div className="px-5">
+          <img src={House} className="img-fluid" alt="house"></img>
+        </div>
+      </div>
+      <form className="menu-form" onSubmit={handleSubmit}>
+        <div className="row mb-1">
+          <label className="col-12 col-form-label">ธนาคาร</label>
+          <div className="col">
+            <select className="form-select">
+              <option>- โปรดระบุธนาคาร -</option>
+              <option>ธนาคารกรุงเทพ</option>
+              <option>ธนาคารกรุงศรีอยุธยา</option>
+              <option>ธนาคารเกียรตินาคินภัทร</option>
+              <option>ธนาคารซีไอเอ็มบีไทย</option>
+              <option>ธนาคารทหารไทยธนชาต</option>
+              <option>ธนาคารทิสโก้</option>
+              <option>ธนาคารไทยเครดิตเพื่อรายย่อย</option>
+              <option>ธนาคารไทยพาณิชย์</option>
+              <option>ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร</option>
+              <option>ธนาคารเพื่อการส่งออกและนำเข้าแห่งประเทศไทย</option>
+              <option>ธนาคารยูโอบี</option>
+              <option>ธนาคารแลนด์ แอนด์ เฮ้าส์</option>
+              <option>ธนาคารออมสิน</option>
+              <option>ธนาคารอาคารสงเคราะห์</option>
+              <option>ธนาคารอิสลามแห่งประเทศไทย</option>
+              <option>ธนาคารไอซีบีซี (ไทย)</option>
+            </select>
           </div>
         </div>
-        <div className="mb-3 w-50" controlid="formPhoneNumber">
-          <label>Phone number</label>
-          <div className="input-group">
-            <span className="input-group-text">thailand +66</span>
+
+        <div className="row mb-1">
+          <label class="col-12 col-form-label">เลขที่บัญชี</label>
+          <div className="col">
+            <input
+              type="text"
+              name="bank_account"
+              className="form-control"
+              minLength="10"
+              maxLength="12"
+              autocomplete="off"
+              value=""
+            />
+          </div>
+        </div>
+
+        <div className="row mb-1">
+          <label className="col-12 col-form-label">
+            ชื่อ (ตรงกับบัญชีธนาคาร)
+          </label>
+          <div className="col">
+            <input
+              type="text"
+              name="first_name"
+              className="form-control"
+              minLength="3"
+              maxLength="50"
+              autocomplete="off"
+              value=""
+            />
+          </div>
+        </div>
+
+        <div className="row mb-1">
+          <label className="col-12 col-form-label">
+            นามสกุล (ตรงกับบัญชีธนาคาร)
+          </label>
+          <div className="col">
+            <input
+              type="text"
+              name="last_name"
+              className="form-control"
+              minLength="3"
+              maxLength="50"
+              autocomplete="off"
+              value=""
+            />
+          </div>
+        </div>
+
+        <div className="row mb-1" controlid="formPhoneNumber">
+          <label className="col-12 col-form-label">หมายเลขโทรศัพท์ +66</label>
+          <div className="col">
             <input
               type="tel"
               className="form-control"
               name="phonenumber"
+              minLength="10"
+              maxLength="10"
+              autocomplete="off"
               pattern="[0-9]{10}"
               value={phoneNumber}
               onChange={(e) => {
                 setPhoneNumber(e.target.value);
               }}
             />
-            <button className="btn btn-primary" onClick={requestOTP}>
-              OTP
-            </button>
           </div>
+
+          {/* <button className="btn btn-primary" onClick={requestOTP}>
+            OTP
+          </button>
           <div id="phoneHelp" className="form-text text-muted">
             please insert your phone number Ex: 0XXXXXXXXX
+          </div> */}
+        </div>
+
+        <div className="row mb-1">
+          <label className="col-12 col-form-label" for="otpCode">
+            OTP
+            <span className="small">
+              <button
+                type="button"
+                class="btn btn-danger float-end btn-sm py-1 rounded-0"
+                onClick={requestOTP}
+              >
+                รับรหัส
+              </button>
+            </span>
+          </label>
+          <div className="col">
+            <div className="d-flex">
+              <input
+                type="text"
+                name="otpCode"
+                className="form-control float-end w-50"
+                minlength="6"
+                maxlength="6"
+                autocomplete="off"
+                id="otpInput"
+                value={OTP}
+                onChange={verifyOTP}
+              />
+              <input
+                type="text"
+                name="otpPrefixMock"
+                className="form-control-plaintext ms-2 plaintext-color refno"
+                readonly=""
+                value="Ref No."
+              ></input>
+              <div className="inputRefno">
+                <div className="mt-2 text-center bg-light">----</div>
+              </div>
+              <input
+                type="text"
+                name="otpPrefix"
+                className="form-control-plaintext d-none"
+                readonly=""
+                value="----"
+              ></input>
+            </div>
           </div>
         </div>
-        <div id="recaptcha-container"></div>
-        <div className="mb-3" controlid="formOTP">
-          <label className="form-label">OTP</label>
-          <input
-            type="number"
-            className="form-control"
-            id="otpInput"
-            value={OTP}
-            onChange={verifyOTP}
-          />
-          <div id="otpHelp" className="form-text">
-            Please enter your otp
+
+        <div className="row mb-1">
+          <label for="password" class="col-12 col-form-label">
+            รหัสผ่าน
+          </label>
+          <div className="col">
+            <input
+              type="password"
+              name="password"
+              className="form-control"
+              minlength="6"
+              maxlength="30"
+              autocomplete="off"
+              value=""
+            ></input>
           </div>
         </div>
-        <div className="mb-3" controlid="formEmail">
+
+        <div className="row mb-1">
+          <label for="password2" class="col-12 col-form-label">
+            ยืนยันรหัสผ่าน
+          </label>
+          <div className="col">
+            <input
+              type="password"
+              name="password2"
+              class="form-control"
+              minlength="6"
+              maxlength="30"
+              autocomplete="off"
+              value=""
+            ></input>
+          </div>
+        </div>
+
+        <div className="row my-3 mb-2">
+          <div className="col-12"></div>
+          <div className="col"></div>
+        </div>
+
+        {/* <div className="mb-3" controlid="formEmail">
           <label className="form-label">Email address</label>
           <input
             type="email"
@@ -164,7 +315,7 @@ const SignUp = () => {
         </div>
         <button variant="primary" type="submit">
           Submit
-        </button>
+        </button>*/}
       </form>
     </div>
   );

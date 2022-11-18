@@ -1,0 +1,12 @@
+.dashboard {
+  width: 600px;
+  height: 400px;
+  margin: auto;
+  justify-content: space-around;
+  border-radius: 10px;
+  border: 0.2rem solid #4a2010;
+  background-color: aliceblue;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
