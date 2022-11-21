@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./components/dashboard";
 import LogIn from "./components/Login";
 import SignUp from "./components/SignUp";
@@ -9,9 +9,10 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
         <Route exact path="/login" element={<LogIn />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/signup" element={<SignUp />} />
       </Routes>
     </AuthProvider>
   );

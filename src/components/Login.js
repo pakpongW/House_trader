@@ -1,8 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./Auth";
-import { auth } from "../config";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 import "./CSS/menuform.css";
 import House from "../image/house.png";
 
